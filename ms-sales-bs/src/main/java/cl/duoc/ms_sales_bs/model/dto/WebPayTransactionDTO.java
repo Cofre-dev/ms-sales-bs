@@ -13,9 +13,15 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class WebPayTransactionQueryResponseCardDetailDTO {
+
+public class WebPayTransactionDTO {
 
     @JsonProperty("card_number")
     private String cardNumber;
+
+    public String getToken() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getToken'");
+    }
 
 }

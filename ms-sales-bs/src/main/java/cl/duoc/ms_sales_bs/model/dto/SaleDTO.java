@@ -15,7 +15,6 @@ import lombok.ToString;
 @Setter
 @ToString
 public class SaleDTO {
-
     private String           sessionId;
     private LocalDateTime    date;
     private Integer          amount;

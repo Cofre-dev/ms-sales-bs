@@ -4,9 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cl.duoc.ms_sales_bs.clients.*;
+import cl.duoc.ms_sales_bs.model.dto.ProductDTO;
 import cl.duoc.ms_sales_bs.model.dto.SaleDTO;
 import cl.duoc.ms_sales_bs.model.dto.SalesDTO;
-import cl.duoc.ms_sales_bs.model.dto.WebPayTransacionDTO;
+import cl.duoc.ms_sales_bs.model.dto.SalesDetailDTO;
+import cl.duoc.ms_sales_bs.model.dto.WebPayTransactionDTO;
 import cl.duoc.ms_sales_bs.model.dto.WebPayTransactionQueryResponseDTO;
 import cl.duoc.ms_sales_bs.model.dto.WebPayTransactionRequestDTO;
 import cl.duoc.ms_sales_bs.model.dto.WebPayTransactionResponseDTO;
@@ -17,10 +19,13 @@ import lombok.extern.log4j.Log4j2;
 public class SaleService {
 
     @Autowired
-    WebPayFeignClient webPayFeignClient;
+    WebPayFeingClient webPayFeignClient;
 
     @Autowired
-    SalesDbFeignClient salesDbFeignClient;
+    SalesDbFeingClients salesDbFeignClient;
+
+    @Autowired
+    ProductBsFeignClient productBsFeignClient;
 
     public WebPayTransactionResponseDTO createSale(SaleDTO saleDTO) {
         //TODO: process POST request
@@ -33,20 +38,28 @@ public class SaleService {
         return webPayTransactionResponseDTO;
     }
 
-    public String confirmTransaction(WebPayTransacionDTO webPayTransacionDTO) {
+    public String confirmTransaction(WebPayTransactionDTO webPayTransacionDTO) {
         String response = webPayFeignClient.confirmTransaction("597055555532", "579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C", webPayTransacionDTO.getToken());
         log.info("confirmTransaction: {}", response);
         return response;
       }
 
-     public WebPayTransactionQueryResponseDTO queryTransaction(WebPayTransacionDTO webPayTransacionDTO) {
+     public WebPayTransactionQueryResponseDTO queryTransaction(WebPayTransactionDTO webPayTransacionDTO) {
        WebPayTransactionQueryResponseDTO response =  webPayFeignClient.queryTransaction("597055555532", "579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C", webPayTransacionDTO.getToken());
        log.info("queryTransaction: {}", response);
        return response;
       }
 
      public SalesDTO findSalesById(Long id){
-        return salesDbFeignClient.findSalesById(id).getBody();
+        SalesDTO salesDTO = salesDbFeignClient.findSalesById(id).getBody();
+     
+        for(SalesDetailDTO salesDetailDTO: salesDTO.getSalesDetailDtoList()){
+            Long idProducto = salesDetailDTO.getProduct().getId();
+            ProductDTO product = productBsFeignClient.findProductById(idProducto).getBody();
+            salesDetailDTO.setProduct(product);
+        }
+
+        return salesDTO;
      }
 
 }

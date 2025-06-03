@@ -17,4 +17,12 @@ public class SalesDetailDTO {
     private Long productId;
     private Long quantity; 
     private Long salesId;
+    public void setProduct(ProductDTO product) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setProduct'");
+    }
+    public SalesDTO getProduct() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getProduct'");
+    }
 }

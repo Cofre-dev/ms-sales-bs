@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import cl.duoc.ms_sales_bs.model.dto.SaleDTO;
 import cl.duoc.ms_sales_bs.model.dto.SalesDTO;
-import cl.duoc.ms_sales_bs.model.dto.WebPayTransacionDTO;
+import cl.duoc.ms_sales_bs.model.dto.WebPayTransactionDTO;
 import cl.duoc.ms_sales_bs.model.dto.WebPayTransactionQueryResponseDTO;
 import cl.duoc.ms_sales_bs.model.dto.WebPayTransactionResponseDTO;
 import cl.duoc.ms_sales_bs.service.SaleService;
@@ -25,7 +25,7 @@ public class SaleController {
 
     @Autowired
     SaleService saleService;
-
+    
     @GetMapping("/{id}")
     public ResponseEntity<SalesDTO> findSalesById(@PathVariable Long id) {
         SalesDTO salesDTO = saleService.findSalesById(id);
@@ -40,13 +40,13 @@ public class SaleController {
     }
 
     @PostMapping("/transaction/confirm")
-    public String confirmTransaction(@RequestBody WebPayTransacionDTO webPayTransacionDTO) {
+    public String confirmTransaction(@RequestBody WebPayTransactionDTO webPayTransacionDTO) {
         log.info("WebPayTransacionDTO: {}", webPayTransacionDTO);
         return saleService.confirmTransaction(webPayTransacionDTO);
     }
 
     @PostMapping("/transaction/query")
-    public WebPayTransactionQueryResponseDTO queryTransaction(@RequestBody WebPayTransacionDTO webPayTransacionDTO) {
+    public WebPayTransactionQueryResponseDTO queryTransaction(@RequestBody WebPayTransactionDTO webPayTransacionDTO) {
         log.info("WebPayTransacionDTO: {}", webPayTransacionDTO);
         return saleService.queryTransaction(webPayTransacionDTO);
     }
