@@ -28,7 +28,6 @@ public class SaleService {
     ProductBsFeignClient productBsFeignClient;
 
     public WebPayTransactionResponseDTO createSale(SaleDTO saleDTO) {
-        //TODO: process POST request
         log.info("SaleDTO: {}", saleDTO);
         //Generamos el objeto request para la integracion con WebPay
         WebPayTransactionRequestDTO webPayTransactionRequestDTO = new WebPayTransactionRequestDTO("00001", saleDTO.getSessionId(), saleDTO.getAmount(), "http://localhost/fe-ecommerce/resultado.html");
@@ -60,6 +59,19 @@ public class SaleService {
         }
 
         return salesDTO;
+     }
+
+    public SalesDTO insertSale(SalesDTO saleDTO){
+
+        SalesDTO dto = salesDbFeignClient.insertSale(saleDTO).getBody();
+        
+        for(SalesDetailDTO salesDetailDTO: dto.getSalesDetailDtoList()){
+            Long idProducto = salesDetailDTO.getProduct().getId();
+            ProductDTO product = productBsFeignClient.findProductById(idProducto).getBody();
+            salesDetailDTO.setProduct(product);
+        }
+
+        return dto;    
      }
 
 }

@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import cl.duoc.ms_sales_bs.clients.WebPayFeingClient;
 import cl.duoc.ms_sales_bs.model.dto.WebPayTransactionQueryResponseDTO;
 import cl.duoc.ms_sales_bs.model.dto.WebPayTransactionRequestDTO;
 import cl.duoc.ms_sales_bs.model.dto.WebPayTransactionResponseDTO;

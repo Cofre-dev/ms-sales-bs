@@ -16,12 +16,6 @@ import lombok.ToString;
 
 public class WebPayTransactionDTO {
 
-    @JsonProperty("card_number")
-    private String cardNumber;
-
-    public String getToken() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getToken'");
-    }
+    private String token;
 
 }

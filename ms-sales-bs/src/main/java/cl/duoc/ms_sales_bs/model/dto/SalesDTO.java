@@ -20,10 +20,8 @@ public class SalesDTO {
     private Long   id;
     @JsonProperty(value = "venta_monto")
     private Long   amount; 
-    //private String salesDate;
     @JsonProperty(value = "venta_cliente_id")
     private Long   customerId;
-
     @JsonProperty(value = "venta_detalle")
     private List<SalesDetailDTO> salesDetailDtoList;
 }
