@@ -14,17 +14,7 @@ import lombok.ToString;
 public class SalesDetailDTO {
 
     private Long id;
-    private Long productId;
+    private ProductDTO product;
     private Long quantity; 
     private Long salesId;
-    
-    public ProductDTO getProduct() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getProduct'");
-    }
-    public void setProduct(ProductDTO product) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setProduct'");
-    }
-
 }

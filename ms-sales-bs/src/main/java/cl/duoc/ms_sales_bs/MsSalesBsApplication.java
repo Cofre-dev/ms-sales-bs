@@ -11,5 +11,4 @@ public class MsSalesBsApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(MsSalesBsApplication.class, args);
 	}
-
 }

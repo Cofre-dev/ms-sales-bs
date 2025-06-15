@@ -15,7 +15,7 @@ import cl.duoc.ms_sales_bs.model.dto.SalesDTO;
 import cl.duoc.ms_sales_bs.model.dto.WebPayTransactionDTO;
 import cl.duoc.ms_sales_bs.model.dto.WebPayTransactionQueryResponseDTO;
 import cl.duoc.ms_sales_bs.model.dto.WebPayTransactionResponseDTO;
-import cl.duoc.ms_sales_bs.service.SaleService;
+import cl.duoc.ms_sales_bs.services.SaleServices;
 import lombok.extern.log4j.Log4j2;
 
 @RestController
@@ -24,13 +24,21 @@ import lombok.extern.log4j.Log4j2;
 public class SaleController {
 
     @Autowired
-    SaleService saleService;
+    SaleServices saleService;
     
     @GetMapping("/{id}")
     public ResponseEntity<SalesDTO> findSalesById(@PathVariable("id") Long id) {
         SalesDTO salesDTO = saleService.findSalesById(id);
         return (salesDTO != null)?  new ResponseEntity<>(salesDTO, HttpStatus.OK) :
                                      new ResponseEntity<>(HttpStatus.NOT_FOUND); 
+    }
+
+    @PostMapping("")
+    public ResponseEntity <SalesDTO> postMethodName(@RequestBody SalesDTO salesDTO) {
+        //TODO: process POST request
+        SalesDTO newSalesDTO = saleService.insertSale(salesDTO);
+        return (newSalesDTO != null)? new ResponseEntity<>(newSalesDTO, HttpStatus.OK) :
+                                     new ResponseEntity<>(HttpStatus.NOT_FOUND);    
     }
 
     @PostMapping("sas")

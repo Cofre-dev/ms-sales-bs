@@ -1,4 +1,4 @@
-package cl.duoc.ms_sales_bs.service;
+package cl.duoc.ms_sales_bs.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,7 +16,7 @@ import lombok.extern.log4j.Log4j2;
 
 @Service
 @Log4j2
-public class SaleService {
+public class SaleServices {
 
     @Autowired
     WebPayFeingClient webPayFeignClient;
@@ -29,10 +29,9 @@ public class SaleService {
 
     public WebPayTransactionResponseDTO createSale(SaleDTO saleDTO) {
         log.info("SaleDTO: {}", saleDTO);
-        //Generamos el objeto request para la integracion con WebPay
+        
         WebPayTransactionRequestDTO webPayTransactionRequestDTO = new WebPayTransactionRequestDTO("00001", saleDTO.getSessionId(), saleDTO.getAmount(), "http://localhost/fe-ecommerce/resultado.html");
         
-        //Generamos el objeto de respuesta de WebPay y llamamos al método del feign client.
         WebPayTransactionResponseDTO webPayTransactionResponseDTO = webPayFeignClient.generateTransaction("597055555532", "579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C", webPayTransactionRequestDTO);
         return webPayTransactionResponseDTO;
     }
@@ -70,7 +69,6 @@ public class SaleService {
             ProductDTO product = productBsFeignClient.findProductById(idProducto).getBody();
             salesDetailDTO.setProduct(product);
         }
-
         return dto;    
      }
 

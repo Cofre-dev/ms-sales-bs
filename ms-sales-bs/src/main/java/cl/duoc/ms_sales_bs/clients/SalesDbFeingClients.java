@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import cl.duoc.ms_sales_bs.model.dto.SalesDTO;
 
-@FeignClient(name = "ms-sales-db", url = "http://localhost:8080")
+@FeignClient(name = "ms-sales-db", url = "http://localhost:8081")
 public interface SalesDbFeingClients {
 
     @GetMapping("/api/sales/{id}")
